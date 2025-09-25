@@ -13,6 +13,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 // 引入样式
 import './assets/css/index.scss'
 
+//test first commit
 const app = createApp(App)
 
 app.use(createPinia())
