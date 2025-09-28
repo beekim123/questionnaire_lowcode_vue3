@@ -2,7 +2,7 @@ import type { VueComType } from './common';
 
 export interface BaseProps {
   id: string;
-  isShown: boolean;
+  isShow?: boolean;
   name: string;
   editCom: VueComType;
 }

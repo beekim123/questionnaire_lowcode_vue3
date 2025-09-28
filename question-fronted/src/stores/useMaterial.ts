@@ -1,6 +1,7 @@
 // 组件市场里面所有组件状态的仓库
 import { defineStore } from 'pinia';
 import { defaultStatusMap } from '@/configs/defaultStatus/defaultStatusMap';
+import { setTextStatus } from './actions';
 
 // 定义组件状态类型
 type ComponentStatus = ReturnType<typeof defaultStatusMap[keyof typeof defaultStatusMap]>;
@@ -18,7 +19,9 @@ export const useMaterialStore = defineStore('materialStore', {
       'single-select': defaultStatusMap['single-select'](),
     },
   }),
-  
+   actions: {
+    setTextStatus,
+  },
   // getters: {
   //   // 获取当前选中组件
   //   getCurrentComponent: (state): ComponentStatus | null => {
