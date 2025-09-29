@@ -9,7 +9,7 @@ declare module '*.vue' {
 
 // 为路径别名添加更安全的类型声明
 declare module '@/*' {
-  const value: unknown
+  const value: unknown 
   export default value
 }
 

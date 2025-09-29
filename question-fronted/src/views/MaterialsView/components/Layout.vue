@@ -22,14 +22,15 @@ import { computed,provide } from 'vue';
 import { useMaterialStore } from '@/stores/useMaterial';
 import EditPannel from '@/components/SurveyComs/EditItems/EditPannel.vue';
 import { ElMessage } from 'element-plus';
-import type { OptionsProps } from '@/types/index';
+import type { OptionsProps, PicLink } from '@/types/index';
+import { isPicLink } from '@/types/index';
 
 // 数据仓库
 const store = useMaterialStore();
 
 
 // 获取当前选中组件的状态数据
-const currentCom  = computed(() => store.coms[store.currentMaterialCom]);
+const currentCom  = computed(() => store.coms[store.currentMaterialCom as string]);
 
 const updateStatus = (configKey: string, payload?: number | string | boolean | object | undefined) => {
   // 拿到新的状态数据之后，就应该去修改仓库里面的数据
@@ -50,7 +51,11 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
         const result = store.removeOption(currentCom.value.status[configKey] as OptionsProps, payload);
         if (result) ElMessage.success('删除成功');
         else ElMessage.error('至少保留两个选项');
-      } else {
+      }else if (typeof payload === 'object' && isPicLink(payload)) {
+        // 说明是在设置图片的链接
+        store.setPicLinkByIndex(currentCom.value.status[configKey] as OptionsProps, payload);
+      }
+       else {
         // 说明是新增选项
         store.addOption(currentCom.value.status[configKey] as OptionsProps);
       }
@@ -104,8 +109,13 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
       break
   }
 };
-provide('updateStatus', updateStatus);
 
+const getLink = (link: PicLink) => {
+  updateStatus('options', link);
+};
+
+provide('updateStatus', updateStatus);
+provide('getLink', getLink);
 </script>
 
 

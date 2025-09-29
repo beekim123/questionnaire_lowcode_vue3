@@ -1,5 +1,6 @@
 // 工具库
 import type { TextProps, OptionsProps } from '@/types/index';
+import  {isPicTitleDescStatusArr } from '@/types/index';
 
 export function getTextStatus(props: TextProps) {
   return props.status;
@@ -15,4 +16,10 @@ export function getCurrentStatus(props: OptionsProps) {
 
 export function getStringStatusByCurrentStatus(props: OptionsProps) {
   return props.status[props.currentStatus] as string;
+}
+
+export function getPicTitleDescStatusArr(props: OptionsProps) {
+  if (props && isPicTitleDescStatusArr(props.status)) {
+    return props.status;
+  }
 }

@@ -49,3 +49,30 @@ export interface OptionsStatus extends BaseStatus {
 export function isStringArray(status: OptionsStatusArr): status is string[] {
   return Array.isArray(status) && typeof status[0] === 'string';
 }
+
+
+// 确定 status 是 { value: string; status: string } 这种类型的数组
+export function isValueStatusArr(status: OptionsStatusArr): status is ValueStatusArr {
+  return (
+    Array.isArray(status) &&
+    typeof status[0] === 'object' &&
+    'value' in status[0] &&
+    'status' in status[0]
+  );
+}
+
+// 确定 status 是 { picTitle: string; picDesc: string; value: string } 这种类型的数组
+export function isPicTitleDescStatusArr(status: OptionsStatusArr): status is PicTitleDescStatusArr {
+  return (
+    Array.isArray(status) &&
+    typeof status[0] === 'object' &&
+    'picTitle' in status[0] &&
+    'picDesc' in status[0] &&
+    'value' in status[0]
+  );
+}
+
+export type PicLink = { link: string; index: number };
+export function isPicLink(obj: object): obj is PicLink {
+  return 'link' in obj && 'index' in obj;
+}

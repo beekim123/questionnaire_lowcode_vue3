@@ -20,6 +20,7 @@ const router = useRouter();
 import { ref } from 'vue';
 
 const goHome = () => {
+  localStorage.setItem('activeView', 'home');
   router.push('/');
 };
 
