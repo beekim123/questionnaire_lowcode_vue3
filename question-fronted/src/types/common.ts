@@ -10,3 +10,4 @@ export interface Status {
   id: string;
   status: OptionsStatus;
 }
+export type UpdateStatusType=(configKey: string, payload?: number | string | boolean | object | undefined)=>void

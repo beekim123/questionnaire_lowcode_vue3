@@ -21,6 +21,9 @@
 import { computed,provide } from 'vue';
 import { useMaterialStore } from '@/stores/useMaterial';
 import EditPannel from '@/components/SurveyComs/EditItems/EditPannel.vue';
+import { ElMessage } from 'element-plus';
+import type { OptionsProps } from '@/types/index';
+
 // 数据仓库
 const store = useMaterialStore();
 
@@ -36,8 +39,69 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
       if (typeof payload !== 'string') {
         console.error('Invalid payload type for "title or desc". Expected string.');
       }
+      console.log(currentCom.value.status);
       store.setTextStatus(currentCom.value.status[configKey], payload as string);
     }
+    case 'options': {
+      if (typeof payload === 'number') {
+        console.log(typeof currentCom.value.status[configKey]);
+        
+        // 说明是删除选项
+        const result = store.removeOption(currentCom.value.status[configKey] as OptionsProps, payload);
+        if (result) ElMessage.success('删除成功');
+        else ElMessage.error('至少保留两个选项');
+      } else {
+        // 说明是新增选项
+        store.addOption(currentCom.value.status[configKey] as OptionsProps);
+      }
+    }
+    case 'position': {
+      console.log(payload);
+      
+      if (typeof payload !== 'number') {
+        console.error('Invalid payload type for "position". Expected number.');
+      }
+      store.setPosition(currentCom.value.status[configKey] as OptionsProps, payload as number);
+    }
+    case 'titleSize':
+    case 'descSize': {
+      if (typeof payload !== 'number') {
+        console.error('Invalid payload type for "titleSize or descSize". Expected number.');
+      }
+      store.setSize(currentCom.value.status[configKey] as OptionsProps, payload as number);
+    }
+    case 'titleSize':
+    case 'descSize':
+      if (typeof payload !== 'number') {
+        console.error('Invalid payload type for "type". Expected string.')
+        return
+      }
+      store.setSize(currentCom.value.status[configKey] as OptionsProps, payload as number);
+      break
+    case 'titleItalic':
+    case 'descItalic':
+      if (typeof payload !== 'number') {
+        console.error('Invalid payload type for "type". Expected string.')
+        return
+      }
+      store.setItalic(currentCom.value.status[configKey], payload)
+      break
+    case 'titleWeight':
+    case 'descWeight':
+      if (typeof payload !== 'number') {
+        console.error('Invalid payload type for "type". Expected string.')
+        return
+      }
+      store.setWeight(currentCom.value.status[configKey], payload)
+      break
+    case 'titleColor':
+    case 'descColor':
+      if (typeof payload !== 'string') {
+        console.error('Invalid payload type for "type". Expected string.')
+        return
+      }
+      store.setColor(currentCom.value.status[configKey], payload)
+      break
   }
 };
 provide('updateStatus', updateStatus);
