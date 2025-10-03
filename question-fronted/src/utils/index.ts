@@ -1,5 +1,5 @@
 // 工具库
-import type { TextProps, OptionsProps, TypeStatus } from '@/types/index';
+import type { TextProps, OptionsProps } from '@/types/index';
 import  {isPicTitleDescStatusArr } from '@/types/index';
 import {
   isOptionsProps,
@@ -27,21 +27,7 @@ export function getPicTitleDescStatusArr(props: OptionsProps) {
     return props.status;
   }
 }
-export function changeEditorIsShowStatus(status: TypeStatus, type: number) {
-  if (type !== status.type.currentStatus) {
-    status.title.isShow = !status.title.isShow;
-    status.desc.isShow = !status.desc.isShow;
-    status.position.isShow = !status.position.isShow;
-    status.titleSize.isShow = !status.titleSize.isShow;
-    status.descSize.isShow = !status.descSize.isShow;
-    status.titleWeight.isShow = !status.titleWeight.isShow;
-    status.descWeight.isShow = !status.descWeight.isShow;
-    status.titleItalic.isShow = !status.titleItalic.isShow;
-    status.descItalic.isShow = !status.descItalic.isShow;
-    status.titleColor.isShow = !status.titleColor.isShow;
-    status.descColor.isShow = !status.descColor.isShow;
-  }
-}
+
 export function getValueStatus(props: OptionsProps) {
   if (
     props &&
@@ -49,5 +35,15 @@ export function getValueStatus(props: OptionsProps) {
     (isValueStatusArray(props.status) || isPicTitleDescArray(props.status))
   ) {
     return props.status
+  }
+}
+
+export function getValueStatusByCurrentStatus(props: OptionsProps) {
+  if (
+    props &&
+    isOptionsProps(props) &&
+    (isValueStatusArray(props.status) || isPicTitleDescArray(props.status))
+  ) {
+    return props.status[props.currentStatus]
   }
 }

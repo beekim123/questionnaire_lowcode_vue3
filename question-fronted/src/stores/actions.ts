@@ -1,4 +1,4 @@
-import type { TextProps, OptionsProps,PicLink } from '@/types';
+import type { TextProps, OptionsProps,PicLink,optionsStatusByIndexPayload } from '@/types';
 import { isStringArray,isPicTitleDescStatusArr } from '@/types';
 export function setTextStatus(textProps: TextProps, text: string) {
   textProps.status = text;
@@ -53,4 +53,16 @@ export function setPicLinkByIndex(optionProps: OptionsProps, payload: PicLink) {
 
 export function setCurrentStatus(optionProps: OptionsProps, index: number) {
   optionProps.currentStatus = index;
+}
+export function setUse(optionsProps: OptionsProps, isUse: boolean) {
+  optionsProps.isUse = isUse
+}
+export function setTextType(typeProps: OptionsProps, index: number) {
+  typeProps.currentStatus = index
+}
+export function setOptionsStatusByIndex(
+  optionsProps: OptionsProps,
+  payload: optionsStatusByIndexPayload,
+) {
+  optionsProps.status[payload.index] = payload.val
 }

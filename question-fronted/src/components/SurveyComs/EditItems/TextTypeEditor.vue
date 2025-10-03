@@ -34,7 +34,7 @@ const props = defineProps<{
 }>();
 const updateStatus = inject<UpdateStatus>('updateStatus');
 const changeType = (type: number) => {
-  if (updateStatus) updateStatus(props.configKey, type);
+  if (updateStatus) updateStatus(props.configKey, type,true);
 };
 </script>
 

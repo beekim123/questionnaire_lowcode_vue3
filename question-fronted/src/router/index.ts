@@ -57,7 +57,7 @@ const router = createRouter({
           path: '/input-group',
           name: 'input-group',
           component: () => import('@/views/MaterialsView/components/InputGroupView.vue'),
-            redirect: '/text-input',
+          redirect: '/text-input',
           children: [
             {
               path: '/text-input',
@@ -68,8 +68,23 @@ const router = createRouter({
         },
         {
           path: '/advanced-group',
-          name: 'advanced-group',
+          name: 'advanced-group',//高级题型
           component: () => import('@/views/MaterialsView/components/AdvancedGroupView.vue'),
+          redirect: '/rate-score',
+          children: [
+            {
+              path: '/rate-score',
+              name: 'rate-score',
+              component: () =>
+                import('@/components/SurveyComs/Materials/AdvancedComs/RateScore.vue'),
+            },
+            {
+              path: '/date-time',
+              name: 'date-time',
+              component: () =>
+                import('@/components/SurveyComs/Materials/AdvancedComs/DateTime.vue'),
+            },
+          ],
         },
         {
           path: '/note-group',

@@ -5,6 +5,7 @@ export interface BaseProps {
   isShow?: boolean;
   name: string;
   editCom: VueComType;
+  isUse?: boolean
 }
 
 export type StringStatusArr = string[];
@@ -58,6 +59,15 @@ export interface TypeStatus extends BaseStatus {
   type: OptionsProps;
 }
 
+// 类型保护函数：检查是否有 type 属性
+export function hasType(status: BaseStatus): status is TypeStatus {
+  return (status as TypeStatus).type !== undefined
+}
+
+// 类型保护函数：检查是否有 options 属性
+export function hasOptions(status: BaseStatus): status is OptionsStatus {
+  return (status as OptionsStatus).options !== undefined
+}
 
 
 
@@ -88,7 +98,8 @@ export function isPicLink(obj: object): obj is PicLink {
 }
 export type UpdateStatus = (
   configKey: string,
-  payload?: number | string | boolean | PicLink,
+  payload?: number | string | boolean | object | PicLink,
+  isShowChange?: boolean,
 ) => void;
 
 

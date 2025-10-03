@@ -12,35 +12,42 @@
     </div>
     <!-- 编辑面板 -->
     <div class="right">
-       <EditPannel :com="currentCom" />
+      <EditPannel :com="currentCom" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed,provide } from 'vue';
+import { computed, provide } from 'vue';
 import { useMaterialStore } from '@/stores/useMaterial';
 import EditPannel from '@/components/SurveyComs/EditItems/EditPannel.vue';
 import { ElMessage } from 'element-plus';
-import type { OptionsProps, PicLink,MaterialStore } from '@/types/index';
-import { isPicLink,IsTypeStatus } from '@/types/index';
-import { changeEditorIsShowStatus } from '@/utils';
+import type { OptionsProps, PicLink, MaterialStore } from '@/types/index';
+import { isPicLink, isOptionsStatusByIndexPayload,hasType } from '@/types/index';
+import { setType } from '@/stores/useDispatch';
+// import { changeEditorIsShowStatus } from '@/utils';
 
 // 数据仓库
 const store = useMaterialStore() as unknown as MaterialStore;
 
 
 // 获取当前选中组件的状态数据
-const currentCom  = computed(() => store.coms[store.currentMaterialCom]);
+const currentCom = computed(() => store.coms[store.currentMaterialCom]);
 
-const updateStatus = (configKey: string, payload?: number | string | boolean | object | undefined) => {
+const updateStatus = (configKey: string, payload: number | string | boolean|object, isShowChange: boolean = false) => {
   // 拿到新的状态数据之后，就应该去修改仓库里面的数据
   switch (configKey) {
-      case 'type': {
-      if (typeof payload === 'number' && IsTypeStatus(currentCom.value.status)) {
-        // 切换其他编辑器的显示状态
-        changeEditorIsShowStatus(currentCom.value.status, payload);
-        store.setCurrentStatus(currentCom.value.status[configKey], payload);
+    case 'type': {
+       if (hasType(currentCom.value.status)) {
+        if (typeof payload === 'number') {
+          // 说明是切换类型
+          if (isShowChange) {
+            setType(currentCom.value.status, payload)
+          }
+          store.setTextType(currentCom.value.status[configKey], payload)
+          console.log(currentCom.value.status[configKey]);
+          
+        }
       }
       break;
     }
@@ -55,23 +62,33 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
     case 'options': {
       if (typeof payload === 'number') {
         console.log(typeof currentCom.value.status[configKey]);
-        
+
         // 说明是删除选项
         const result = store.removeOption(currentCom.value.status[configKey] as OptionsProps, payload);
         if (result) ElMessage.success('删除成功');
         else ElMessage.error('至少保留两个选项');
-      }else if (typeof payload === 'object' && isPicLink(payload)) {
+      } else if (typeof payload === 'boolean') {
+        store.setUse(currentCom.value.status[configKey] as OptionsProps, payload)
+      }
+      else if (typeof payload === 'object' && isOptionsStatusByIndexPayload(payload)) {
+        console.log(666);
+
+        store.setOptionsStatusByIndex(currentCom.value.status[configKey] as OptionsProps, payload)
+      }
+      else if (typeof payload === 'object' && isPicLink(payload)) {
         // 说明是在设置图片的链接
         store.setPicLinkByIndex(currentCom.value.status[configKey] as OptionsProps, payload);
       }
-       else {
+      else {
+        console.log(99);
+
         // 说明是新增选项
         store.addOption(currentCom.value.status[configKey] as OptionsProps);
       }
     }
     case 'position': {
       console.log(payload);
-      
+
       if (typeof payload !== 'number') {
         console.error('Invalid payload type for "position". Expected number.');
       }

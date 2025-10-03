@@ -16,6 +16,9 @@ export interface Actions {
   setItalic: (optionProps: OptionsProps, italic: boolean) => void;
   setWeight: (optionProps: OptionsProps, weight: number) => void;
   setSize: (optionProps: OptionsProps, size: number) => void;
+  setUse: (optionsProps: OptionsProps, isUse: boolean) => void;
+  setTextType: (typeProps: OptionsProps, index: number) => void;
+
 }
 
 // 仓库状态
@@ -23,4 +26,32 @@ export interface MaterialStore extends Actions {
   currentMaterialCom: Material;
   coms: Record<Material, Status>;
   setCurrentSurveyCom: (com: Material) => void;
+  setOptionsStatusByIndex: (optionProps: OptionsProps, payload: optionsStatusByIndexPayload) => void;
+}
+export interface EditorStore extends Actions {
+  currentComponentIndex: number
+  surveyCount: number
+  coms: Status[]
+  setCurrentComponentIndex: (index: number) => void
+  addCom: (coms: Status[], newCom: Status) => void
+  // setStore: (storeStatus: SurveyDBData) => void
+  initStore: () => void
+  removeCom: (index: number) => void
+  resetComs: () => void
+}
+
+export type optionsStatusByIndexPayload = {
+  val: string
+  index: number
+}
+
+export function isOptionsStatusByIndexPayload(obj: object): obj is optionsStatusByIndexPayload {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'val' in obj &&
+    typeof (obj as optionsStatusByIndexPayload).val === 'string' &&
+    'index' in obj &&
+    typeof (obj as optionsStatusByIndexPayload).index === 'number'
+  )
 }
