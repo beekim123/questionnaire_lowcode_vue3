@@ -2,9 +2,11 @@
 import singleSelectDefaultStatus from './SingleSelect';
 import singlePicSelectDefaultStatus from './SinglePicSelect';
 import textNote from './TextNote';
+import multiSelectDefaultStatus from './MultiSelect';
 
 export const defaultStatusMap = {
   'single-select': singleSelectDefaultStatus,
    'single-pic-select': singlePicSelectDefaultStatus,
    'text-note': textNote,
+   'multi-select': multiSelectDefaultStatus,
 };

@@ -1,7 +1,7 @@
 // 组件市场里面所有组件状态的仓库
 import { defineStore } from 'pinia';
 import { defaultStatusMap } from '@/configs/defaultStatus/defaultStatusMap';
-import { setTextStatus, addOption, removeOption, setPosition, setSize,setItalic,setWeight,setColor,setPicLinkByIndex ,setCurrentStatus} from './actions';
+import { setTextStatus, addOption, removeOption, setPosition, setSize, setItalic, setWeight, setColor, setPicLinkByIndex, setCurrentStatus } from './actions';
 
 // 定义组件状态类型
 type ComponentStatus = ReturnType<typeof defaultStatusMap[keyof typeof defaultStatusMap]>;
@@ -18,15 +18,16 @@ export const useMaterialStore = defineStore('materialStore', {
     coms: {
       'single-select': defaultStatusMap['single-select'](),
       'single-pic-select': defaultStatusMap['single-pic-select'](),
-       'text-note': defaultStatusMap['text-note'](),
+      'text-note': defaultStatusMap['text-note'](),
+      'multi-select': defaultStatusMap['multi-select'](),
     },
   }),
-   actions: {
+  actions: {
     setCurrentMaterialCom(comName: string) {
-     this.currentMaterialCom = comName;
+      this.currentMaterialCom = comName;
     },
     // 编辑器状态更新
-   setTextStatus,
+    setTextStatus,
     addOption,
     removeOption,
     setPosition,
