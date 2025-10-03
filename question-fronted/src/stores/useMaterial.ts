@@ -20,6 +20,9 @@ export const useMaterialStore = defineStore('materialStore', {
       'single-pic-select': defaultStatusMap['single-pic-select'](),
       'text-note': defaultStatusMap['text-note'](),
       'multi-select': defaultStatusMap['multi-select'](),
+      'option-select': defaultStatusMap['option-select'](),
+      'multi-pic-select': defaultStatusMap['multi-pic-select'](),
+
     },
   }),
   actions: {

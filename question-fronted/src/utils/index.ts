@@ -1,7 +1,11 @@
 // 工具库
 import type { TextProps, OptionsProps, TypeStatus } from '@/types/index';
 import  {isPicTitleDescStatusArr } from '@/types/index';
-
+import {
+  isOptionsProps,
+  isValueStatusArray,
+  isPicTitleDescArray,
+} from '@/types'
 export function getTextStatus(props: TextProps) {
   return props.status;
 }
@@ -36,5 +40,14 @@ export function changeEditorIsShowStatus(status: TypeStatus, type: number) {
     status.descItalic.isShow = !status.descItalic.isShow;
     status.titleColor.isShow = !status.titleColor.isShow;
     status.descColor.isShow = !status.descColor.isShow;
+  }
+}
+export function getValueStatus(props: OptionsProps) {
+  if (
+    props &&
+    isOptionsProps(props) &&
+    (isValueStatusArray(props.status) || isPicTitleDescArray(props.status))
+  ) {
+    return props.status
   }
 }

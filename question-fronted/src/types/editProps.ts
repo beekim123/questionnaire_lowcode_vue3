@@ -15,6 +15,8 @@ export type PicTitleDescStatusArr = Array<{
   value: string;
 }>;
 
+export type StatusArray = StringStatusArr | ValueStatusArr | PicTitleDescStatusArr
+
 export interface TextProps extends BaseProps {
   status: string;
 }
@@ -57,9 +59,6 @@ export interface TypeStatus extends BaseStatus {
 }
 
 
-export function isStringArray(status: OptionsStatusArr): status is string[] {
-  return Array.isArray(status) && typeof status[0] === 'string';
-}
 
 
 // 确定 status 是 { value: string; status: string } 这种类型的数组
@@ -91,3 +90,49 @@ export type UpdateStatus = (
   configKey: string,
   payload?: number | string | boolean | PicLink,
 ) => void;
+
+
+/**
+ * 下面两个类型保护函数用于检查 props 是否为 TextProps 或 OptionsProps 类型
+ */
+export function isTextProps(props: TextProps | OptionsProps): props is TextProps {
+  return typeof props.status === 'string'
+}
+export function isOptionsProps(props: TextProps | OptionsProps): props is OptionsProps {
+  return props && Array.isArray(props.status)
+}
+
+/**
+ * 下面三个类型保护函数用于检查 status 是否为：
+ * Array<{ value: string; status: string }>
+ * Array<{ picTitle: string; picDesc: string }>
+ * string[]
+ */
+
+// 类型谓词函数，用于检查 status 是否为 Array<{ value: string; status: string }>
+export function isValueStatusArray(status: StatusArray): status is ValueStatusArr {
+  return (
+    Array.isArray(status) &&
+    status.length > 0 &&
+    typeof status[0] === 'object' &&
+    'value' in status[0] &&
+    'status' in status[0]
+  )
+}
+
+// 类型谓词函数，用于检查 status 是否为 Array<{ picTitle: string; picDesc: string }>
+export function isPicTitleDescArray(status: StatusArray): status is PicTitleDescStatusArr {
+  return (
+    Array.isArray(status) &&
+    status.length > 0 &&
+    typeof status[0] === 'object' &&
+    'picTitle' in status[0] &&
+    'picDesc' in status[0]
+  )
+}
+
+// 类型谓词函数，用于检查 status 是否为 string[]
+export function isStringArray(status: StatusArray): status is string[] {
+  return Array.isArray(status) && (status.length === 0 || typeof status[0] === 'string')
+}
+
