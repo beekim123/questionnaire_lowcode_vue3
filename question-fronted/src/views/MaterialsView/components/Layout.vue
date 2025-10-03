@@ -22,19 +22,28 @@ import { computed,provide } from 'vue';
 import { useMaterialStore } from '@/stores/useMaterial';
 import EditPannel from '@/components/SurveyComs/EditItems/EditPannel.vue';
 import { ElMessage } from 'element-plus';
-import type { OptionsProps, PicLink } from '@/types/index';
-import { isPicLink } from '@/types/index';
+import type { OptionsProps, PicLink,MaterialStore } from '@/types/index';
+import { isPicLink,IsTypeStatus } from '@/types/index';
+import { changeEditorIsShowStatus } from '@/utils';
 
 // 数据仓库
-const store = useMaterialStore();
+const store = useMaterialStore() as unknown as MaterialStore;
 
 
 // 获取当前选中组件的状态数据
-const currentCom  = computed(() => store.coms[store.currentMaterialCom as string]);
+const currentCom  = computed(() => store.coms[store.currentMaterialCom]);
 
 const updateStatus = (configKey: string, payload?: number | string | boolean | object | undefined) => {
   // 拿到新的状态数据之后，就应该去修改仓库里面的数据
   switch (configKey) {
+      case 'type': {
+      if (typeof payload === 'number' && IsTypeStatus(currentCom.value.status)) {
+        // 切换其他编辑器的显示状态
+        changeEditorIsShowStatus(currentCom.value.status, payload);
+        store.setCurrentStatus(currentCom.value.status[configKey], payload);
+      }
+      break;
+    }
     case 'title':
     case 'desc': {
       if (typeof payload !== 'string') {
@@ -89,7 +98,7 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
         console.error('Invalid payload type for "type". Expected string.')
         return
       }
-      store.setItalic(currentCom.value.status[configKey], payload)
+      store.setItalic(currentCom.value.status[configKey] as OptionsProps, payload as unknown as boolean)
       break
     case 'titleWeight':
     case 'descWeight':
@@ -105,7 +114,7 @@ const updateStatus = (configKey: string, payload?: number | string | boolean | o
         console.error('Invalid payload type for "type". Expected string.')
         return
       }
-      store.setColor(currentCom.value.status[configKey], payload)
+      store.setColor(currentCom.value.status[configKey] as unknown as OptionsProps, payload)
       break
   }
 };

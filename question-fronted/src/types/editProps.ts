@@ -19,6 +19,13 @@ export interface TextProps extends BaseProps {
   status: string;
 }
 
+export function IsOptionsStatus(status: BaseStatus): status is OptionsStatus {
+  return 'options' in status;
+}
+export function IsTypeStatus(status: BaseStatus): status is TypeStatus {
+  return 'type' in status;
+}
+
 export type OptionsStatusArr = StringStatusArr | ValueStatusArr | PicTitleDescStatusArr;
 
 export interface OptionsProps extends BaseProps {
@@ -45,6 +52,10 @@ export interface BaseStatus {
 export interface OptionsStatus extends BaseStatus {
   options: OptionsProps;
 }
+export interface TypeStatus extends BaseStatus {
+  type: OptionsProps;
+}
+
 
 export function isStringArray(status: OptionsStatusArr): status is string[] {
   return Array.isArray(status) && typeof status[0] === 'string';
@@ -76,3 +87,7 @@ export type PicLink = { link: string; index: number };
 export function isPicLink(obj: object): obj is PicLink {
   return 'link' in obj && 'index' in obj;
 }
+export type UpdateStatus = (
+  configKey: string,
+  payload?: number | string | boolean | PicLink,
+) => void;

@@ -50,3 +50,7 @@ export function setPicLinkByIndex(optionProps: OptionsProps, payload: PicLink) {
     optionProps.status[payload.index].value = payload.link;
   }
 }
+
+export function setCurrentStatus(optionProps: OptionsProps, index: number) {
+  optionProps.currentStatus = index;
+}

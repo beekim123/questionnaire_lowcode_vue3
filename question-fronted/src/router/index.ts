@@ -19,7 +19,7 @@ const router = createRouter({
           path: '/select-group',
           name: 'select-group',
           component: () => import('@/views/MaterialsView/components/SelectGroupView.vue'),
-            redirect: '/single-select',
+          redirect: '/single-select',
           children: [
             {
               path: '/single-select',
@@ -61,12 +61,20 @@ const router = createRouter({
         {
           path: '/advanced-group',
           name: 'advanced-group',
-          component: () => import('@/views/MaterialsView/components/AdvancedGroupView.vue'),    
+          component: () => import('@/views/MaterialsView/components/AdvancedGroupView.vue'),
         },
         {
           path: '/note-group',
           name: 'note-group',
           component: () => import('@/views/MaterialsView/components/NoteGroupView.vue'),
+          redirect: '/text-note',
+          children: [
+            {
+              path: '/text-note',
+              name: 'text-note',
+              component: () => import('@/components/SurveyComs/Materials/NoteComs/TextNote.vue'),
+            },
+          ],
         },
         {
           path: '/personal-info-group',
@@ -76,7 +84,7 @@ const router = createRouter({
         {
           path: '/contact-group',
           name: 'contact-group',
-          component: () => import('@/views/MaterialsView/components/ContactGroupView.vue'), 
+          component: () => import('@/views/MaterialsView/components/ContactGroupView.vue'),
         },
       ],
     },
@@ -93,7 +101,7 @@ router.beforeEach((to, from, next) => {
   // 因为只有组件市场需要记录当前的组件
   const activeView = localStorage.getItem('activeView');
   const store = useMaterialStore();
- if (activeView === 'materials' && to.name && typeof to.name === 'string') {
+  if (activeView === 'materials' && to.name && typeof to.name === 'string') {
     store.setCurrentMaterialCom(to.name);
   }
   next();
