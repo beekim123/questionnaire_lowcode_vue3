@@ -57,6 +57,14 @@ const router = createRouter({
           path: '/input-group',
           name: 'input-group',
           component: () => import('@/views/MaterialsView/components/InputGroupView.vue'),
+            redirect: '/text-input',
+          children: [
+            {
+              path: '/text-input',
+              name: 'text-input',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+          ],
         },
         {
           path: '/advanced-group',

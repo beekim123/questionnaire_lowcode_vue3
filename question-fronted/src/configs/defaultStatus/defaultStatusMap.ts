@@ -5,13 +5,16 @@ import textNote from './TextNote';
 import multiSelectDefaultStatus from './MultiSelect';
 import optionSelectDefaultStatus from './OptionSelect'
 import multiPicSelectDefaultStatus from './MultiPicSelect'
+import textInputDefaultStatus from './TextInput'
+
 
 
 export const defaultStatusMap = {
   'single-select': singleSelectDefaultStatus,
-   'single-pic-select': singlePicSelectDefaultStatus,
-   'text-note': textNote,
-   'multi-select': multiSelectDefaultStatus,
-   'option-select': optionSelectDefaultStatus,
-     'multi-pic-select': multiPicSelectDefaultStatus,
+  'single-pic-select': singlePicSelectDefaultStatus,
+  'text-note': textNote,
+  'multi-select': multiSelectDefaultStatus,
+  'option-select': optionSelectDefaultStatus,
+  'multi-pic-select': multiPicSelectDefaultStatus,
+  'text-input': textInputDefaultStatus,
 };

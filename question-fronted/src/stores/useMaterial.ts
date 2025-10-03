@@ -22,6 +22,7 @@ export const useMaterialStore = defineStore('materialStore', {
       'multi-select': defaultStatusMap['multi-select'](),
       'option-select': defaultStatusMap['option-select'](),
       'multi-pic-select': defaultStatusMap['multi-pic-select'](),
+       'text-input': defaultStatusMap['text-input'](),
 
     },
   }),
