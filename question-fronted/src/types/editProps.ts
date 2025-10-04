@@ -33,7 +33,7 @@ export type OptionsStatusArr = StringStatusArr | ValueStatusArr | PicTitleDescSt
 
 export interface OptionsProps extends BaseProps {
   status: StringStatusArr | ValueStatusArr | PicTitleDescStatusArr;
-  currentStatus: number;
+  currentStatus?: number;
 }
 
 // 公共的设置项，每个组件都有的设置项
@@ -60,7 +60,7 @@ export interface TypeStatus extends BaseStatus {
 }
 
 // 类型保护函数：检查是否有 type 属性
-export function hasType(status: BaseStatus): status is TypeStatus {
+export function hasType(status: BaseStatus | { [key: string]: TextProps | OptionsProps }): status is TypeStatus {
   return (status as TypeStatus).type !== undefined
 }
 

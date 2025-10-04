@@ -38,7 +38,7 @@ const updateStatus = (configKey: string, payload: number | string | boolean|obje
   // 拿到新的状态数据之后，就应该去修改仓库里面的数据
   switch (configKey) {
     case 'type': {
-       if (hasType(currentCom.value.status)) {
+       if ( hasType(currentCom.value.status)) {
         if (typeof payload === 'number') {
           // 说明是切换类型
           if (isShowChange) {
@@ -57,7 +57,11 @@ const updateStatus = (configKey: string, payload: number | string | boolean|obje
         console.error('Invalid payload type for "title or desc". Expected string.');
       }
       console.log(currentCom.value.status);
-      store.setTextStatus(currentCom.value.status[configKey], payload as string);
+      if (typeof currentCom.value.status[configKey] === 'string') {
+        store.setTextStatus(currentCom.value.status[configKey], payload as string);
+      } else {
+        console.error(`Invalid type for configKey "${configKey}". Expected string.`);
+      }
     }
     case 'options': {
       if (typeof payload === 'number') {
@@ -123,7 +127,7 @@ const updateStatus = (configKey: string, payload: number | string | boolean|obje
         console.error('Invalid payload type for "type". Expected string.')
         return
       }
-      store.setWeight(currentCom.value.status[configKey], payload)
+      store.setWeight(currentCom.value.status[configKey] as unknown as OptionsProps, payload as number)
       break
     case 'titleColor':
     case 'descColor':
