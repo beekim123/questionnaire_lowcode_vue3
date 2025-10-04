@@ -1,6 +1,6 @@
 // 工具库
 import type { TextProps, OptionsProps ,Status,Material} from '@/types/index';
-import  {isPicTitleDescStatusArr } from '@/types/index';
+import  {isPicTitleDescStatusArr,isStringArray } from '@/types/index';
 import {
   isOptionsProps,
   isValueStatusArray,
@@ -26,7 +26,9 @@ export function getCurrentStatus(props: OptionsProps) {
 }
 
 export function getStringStatusByCurrentStatus(props: OptionsProps) {
-  return props.status && props.currentStatus !== undefined ? props.status[props.currentStatus] : undefined;
+  if (props && isOptionsProps(props) && isStringArray(props.status)) {
+    return props.currentStatus !== undefined ? props.status[props.currentStatus] : undefined;
+  }
 }
 
 export function getPicTitleDescStatusArr(props: OptionsProps) {
