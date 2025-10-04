@@ -31,7 +31,7 @@ export type SurveyComName =
 export type Material = SurveyComName | 'text-note';
 
 export interface Actions {
-  setTextStatus: (textProps: TextProps, text: string) => void;
+  setTextStatus: (textProps: TextProps |OptionsProps, text: string) => void;
   addOption: (optionProps: OptionsProps) => void;
   removeOption: (optionProps: OptionsProps, index: number) => number;
   setPosition: (optionProps: OptionsProps, index: number) => void;
@@ -59,6 +59,7 @@ export interface EditorStore extends Actions {
   coms: Status[]
   setCurrentComponentIndex: (index: number) => void
   addCom: (coms: Status[], newCom: Status) => void
+  setOptionsStatusByIndex: (optionProps: OptionsProps, payload: optionsStatusByIndexPayload) => void;
   // setStore: (storeStatus: SurveyDBData) => void
   initStore: () => void
   removeCom: (index: number) => void

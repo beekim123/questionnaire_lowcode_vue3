@@ -56,12 +56,9 @@ const updateStatus = (configKey: string, payload: number | string | boolean|obje
       if (typeof payload !== 'string') {
         console.error('Invalid payload type for "title or desc". Expected string.');
       }
-      console.log(currentCom.value.status);
-      if (typeof currentCom.value.status[configKey] === 'string') {
-        store.setTextStatus(currentCom.value.status[configKey], payload as string);
-      } else {
-        console.error(`Invalid type for configKey "${configKey}". Expected string.`);
-      }
+      console.log(currentCom.value.status[configKey]);
+      
+      store.setTextStatus(currentCom.value.status[configKey], payload as string);
     }
     case 'options': {
       if (typeof payload === 'number') {
