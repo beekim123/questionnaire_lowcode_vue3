@@ -19,6 +19,9 @@ import Header from '@/components/Common/Header.vue';
 import LeftSide from '@/views/EditorView/LeftSide/Index.vue';
 import Center from '@/views/EditorView/Center.vue';
 import RightSide from '@/views/EditorView/RightSide.vue';
+// 仓库
+import { useEditorStore } from '@/stores/useEditor';
+useEditorStore();
 </script>
 
 <style scoped lang="scss">

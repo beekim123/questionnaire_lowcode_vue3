@@ -80,3 +80,14 @@ export function isOptionsStatusByIndexPayload(obj: object): obj is optionsStatus
     typeof (obj as optionsStatusByIndexPayload).index === 'number'
   )
 }
+// 记录题目类型的数组
+export const SurveyComNameArr = [
+  'single-select',
+  'single-pic-select',
+  'personal-info-gender',
+  'personal-info-education',
+];
+// 判断传入的值是否为题目类型
+export function isSurveyComName(value: string): value is SurveyComName {
+  return SurveyComNameArr.includes(value as SurveyComName);
+}

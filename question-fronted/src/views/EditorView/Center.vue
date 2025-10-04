@@ -1,8 +1,35 @@
 <template>
-  <div class="center-container">画布区域</div>
+  <div ref="centerContainer" class="center-container">
+    <div v-for="(item, index) in store.coms" :key="index">
+      <component :is="item.type" :status="item.status" :serialNum="1" />
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { nextTick, ref } from 'vue';
+import { useEditorStore } from '@/stores/useEditor';
+import type { EventBusType } from '@/types';
+const store = useEditorStore();
+// 事件总监
+import EventBus from '@/utils/eventBus';
+
+const centerContainer = ref<HTMLElement | null>(null);
+
+const scrollToBottom = () => {
+  nextTick(() => {
+    const container = centerContainer.value; // 获取容器的dom元素
+    if (container) {
+      window.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  });
+};
+// 通过事件总线提供滚动方法给外部调用
+(EventBus as EventBusType).on('scrollToBottom', scrollToBottom);
+</script>
 
 <style scoped>
 .center-container {
