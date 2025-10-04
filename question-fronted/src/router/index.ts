@@ -103,7 +103,7 @@ const router = createRouter({
           path: '/personal-info-group',
           name: 'personal-info-group',
           component: () => import('@/views/MaterialsView/components/PersonalInfoGroupView.vue'),
-           redirect: '/personal-info-name',
+          redirect: '/personal-info-name',
           children: [
             {
               path: '/personal-info-name',
@@ -176,6 +176,34 @@ const router = createRouter({
           path: '/contact-group',
           name: 'contact-group',
           component: () => import('@/views/MaterialsView/components/ContactGroupView.vue'),
+          redirect: '/personal-info-tel',
+          children: [
+            {
+              path: '/personal-info-tel',
+              name: 'personal-info-tel',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+            {
+              path: '/personal-info-wechat',
+              name: 'personal-info-wechat',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+            {
+              path: '/personal-info-qq',
+              name: 'personal-info-qq',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+            {
+              path: '/personal-info-email',
+              name: 'personal-info-email',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+            {
+              path: '/personal-info-address',
+              name: 'personal-info-address',
+              component: () => import('@/components/SurveyComs/Materials/InputComs/TextInput.vue'),
+            },
+          ],
         },
       ],
     },

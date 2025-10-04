@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Router-link to="#" class="link-item mb-15">文本输入</Router-link>
+    <Router-link to="/text-input" class="link-item mb-15" exact-active-class="link-item-active">文本输入</Router-link>
   </Layout>
 </template>
 
