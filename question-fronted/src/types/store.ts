@@ -136,3 +136,36 @@ export const SurveyComNameArr = [
 export function isSurveyComName(value: string): value is SurveyComName {
   return SurveyComNameArr.includes(value as SurveyComName);
 }
+
+// 该数组记录适合生成PDF的题目类型
+const PDFComs = [
+  'single-select',
+  'multi-select',
+  'single-pic-select',
+  'multi-pic-select',
+  'text-input',
+  'text-note',
+  'personal-info-name',
+  'personal-info-id',
+  'personal-info-tel',
+  'personal-info-wechat',
+  'personal-info-qq',
+  'personal-info-email',
+  'personal-info-address',
+  'personal-info-gender',
+  'personal-info-age',
+  'personal-info-education',
+  'personal-info-career',
+  'personal-info-collage',
+  'personal-info-major',
+  'personal-info-industry',
+  'personal-info-company',
+  'personal-info-position',
+];
+export function canUsedForPDF(value: string): boolean {
+  return PDFComs.includes(value);
+}
+export type QuizData = {
+  surveyCount: number;
+  coms: Status[];
+};

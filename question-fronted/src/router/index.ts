@@ -230,6 +230,11 @@ const router = createRouter({
       name: 'preview',
       component: () => import('@/views/Preview.vue'),
     },
+    {
+      path: '/quiz/:id',
+      name: 'quiz',
+      component: () => import('@/views/QuizView.vue'),
+    },
   ],
 });
 
