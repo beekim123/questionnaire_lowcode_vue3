@@ -1,4 +1,4 @@
-import type { TextProps, OptionsProps, PicLink, Status, VueComType } from '@/types';
+import type { TextProps, OptionsProps, PicLink, Status, VueComType,SurveyDBData } from '@/types';
 // 题目类型
 export type SurveyComName =
   | 'single-select'
@@ -60,7 +60,7 @@ export interface Actions {
   setPosition: (optionProps: OptionsProps, index: number) => void;
   setCurrentStatus: (optionProps: OptionsProps, index: number) => void;
   setPicLinkByIndex: (optionProps: OptionsProps, payload: PicLink) => void;
-  setColor: (optionProps: OptionsProps, color: string) => void;
+  setColor: (optionProps:TextProps| OptionsProps, color: string) => void;
   setItalic: (optionProps: OptionsProps, italic: boolean) => void;
   setWeight: (optionProps: OptionsProps, weight: number) => void;
   setSize: (optionProps: OptionsProps, size: number) => void;
@@ -83,7 +83,7 @@ export interface EditorStore extends Actions {
   setCurrentComponentIndex: (index: number) => void
   addCom: (coms: Status[], newCom: Status) => void
   setOptionsStatusByIndex: (optionProps: OptionsProps, payload: optionsStatusByIndexPayload) => void;
-  // setStore: (storeStatus: SurveyDBData) => void
+  setStore: (storeStatus: SurveyDBData) => void
   initStore: () => void
   removeCom: (index: number) => void
   resetComs: () => void
