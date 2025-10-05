@@ -31,7 +31,7 @@ export type SurveyComName =
 export type Material = SurveyComName | 'text-note';
 
 export interface Actions {
-  setTextStatus: (textProps: TextProps |OptionsProps, text: string) => void;
+  setTextStatus: (textProps: TextProps | OptionsProps, text: string) => void;
   addOption: (optionProps: OptionsProps) => void;
   removeOption: (optionProps: OptionsProps, index: number) => number;
   setPosition: (optionProps: OptionsProps, index: number) => void;
@@ -84,9 +84,30 @@ export function isOptionsStatusByIndexPayload(obj: object): obj is optionsStatus
 // 记录题目类型的数组
 export const SurveyComNameArr = [
   'single-select',
+  'multi-select',
+  'option-select',
   'single-pic-select',
+  'multi-pic-select',
+  'text-input',
+  'personal-info-name',
+  'personal-info-id',
+  'personal-info-tel',
+  'personal-info-wechat',
+  'personal-info-qq',
+  'personal-info-email',
+  'personal-info-address',
   'personal-info-gender',
+  'personal-info-age',
   'personal-info-education',
+  'personal-info-career',
+  'rate-score',
+  'date-time',
+  'personal-info-birth',
+  'personal-info-collage',
+  'personal-info-major',
+  'personal-info-industry',
+  'personal-info-company',
+  'personal-info-position',
 ];
 // 判断传入的值是否为题目类型
 export function isSurveyComName(value: string): value is SurveyComName {

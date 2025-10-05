@@ -48,6 +48,13 @@ export const useEditorStore = defineStore('editor', {
       this.currentComponentIndex = -1;
       if (isSurveyComName(newCom.name)) this.surveyCount++;
     },
+     removeCom(index: number) {
+      // 删除的时候要看删除的是不是问卷题目
+      if (isSurveyComName(this.coms[index].name)) {
+        this.surveyCount--;
+      }
+      this.coms.splice(index, 1);
+    },
    
   },
 });

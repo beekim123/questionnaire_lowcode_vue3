@@ -25,7 +25,7 @@ import { computed } from 'vue';
 import type { TypeStatus } from '@/types';
 import { getTextStatus, getCurrentStatus, getStringStatusByCurrentStatus } from '@/utils';
 const props = defineProps<{
-  serialNum: number;
+  // serialNum: number;
   status: TypeStatus;
 }>();
 console.log(props);
