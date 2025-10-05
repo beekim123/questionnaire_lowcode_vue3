@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <Header />
+      <Header :isEditor="true" />
     </div>
     <!-- 编辑器主体区域 -->
     <div class="container">
