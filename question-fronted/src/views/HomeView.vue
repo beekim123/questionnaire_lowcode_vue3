@@ -11,12 +11,16 @@
       <el-table-column fixed prop="createDate" label="创建日期" width="300" :formatter="formatDate" />
       <el-table-column prop="title" label="问卷标题" />
       <el-table-column prop="surveyCount" label="题目数" width="150" align="center" />
-      <el-table-column prop="updateDate" label="最近更新日期" width="300" align="center"  :formatter="formatDate"/>
+      <el-table-column prop="updateDate" label="最近更新日期" width="300" align="center" :formatter="formatDate" />
       <el-table-column fixed="right" label="操作" width="300" align="center">
-        <template  #default="scope">
-          <el-button link type="primary" size="small">查看问卷</el-button>
-          <el-button link type="primary" size="small">编辑</el-button>
-          <el-button link type="primary" size="small">删除</el-button>
+        <template #default="scope">
+          <el-button link type="primary" size="small" @click="viewSurvey(scope.row)">查看问卷</el-button>
+          <el-button link type="primary" size="small" @click="editSurvey(scope.row)">编辑</el-button>
+          <el-popconfirm title="确认删除吗？" @confirm="deleteSurvey(scope.row)">
+            <template #reference>
+                       <el-button link type="primary" size="small" >删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -26,8 +30,8 @@
 <script setup lang="ts">
 import { Plus, Compass } from '@element-plus/icons-vue';
 import { ref } from 'vue';
-import { getAllSurvey } from '@/db/operation';
-import type { SurveyDBData } from '@/types';
+import { getAllSurvey, deleteSurveyById } from '@/db/operation';
+import type { SurveyDBData, SurveyDBReturnData } from '@/types';
 import { formatDate } from '@/utils';
 // 路由
 import { useRouter } from 'vue-router';
@@ -52,5 +56,29 @@ const goToEditor = () => {
 const goToComMarket = () => {
   localStorage.setItem('activeView', 'materials');
   router.push('/materials');
+};
+
+// 预览问卷
+const viewSurvey = (surveyInfo: SurveyDBReturnData) => {
+  // console.log(surveyInfo.id);
+  router.push({
+    path: `/preview/${surveyInfo.id}`,
+    state: {
+      from: 'home',
+    },
+  });
+};
+
+// 编辑问卷
+const editSurvey = (surveyInfo: SurveyDBReturnData) => {
+  // 仅仅是做一个跳转，跳转到编辑器页面，但是需要将 id 带过去
+  router.push(`/editor/${surveyInfo.id}/survey-type`);
+};
+
+// 删除问卷
+const deleteSurvey = (surveyInfo: SurveyDBReturnData) => {
+  deleteSurveyById(surveyInfo.id).then(() => {
+    getData();
+  });
 };
 </script>

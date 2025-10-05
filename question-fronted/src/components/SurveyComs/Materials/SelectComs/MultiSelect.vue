@@ -43,7 +43,7 @@ const props = defineProps<{
   status: OptionsStatus
   serialNum: number
 }>()
-// const emits = defineEmits(['updateAnswer'])
+const emits = defineEmits(['updateAnswer'])
 const checkboxValue = ref<string[]>([])
 const computedState = computed(() => ({
   title: getTextStatus(props.status.title),
@@ -60,7 +60,7 @@ const computedState = computed(() => ({
   descColor: getTextStatus(props.status.descColor),
 }))
 const emitAnswer = () => {
-  // emits('updateAnswer', checkboxValue.value)
+  emits('updateAnswer', checkboxValue.value)
 }
 </script>
 

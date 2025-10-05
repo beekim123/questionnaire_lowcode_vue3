@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <Header :isEditor="true" />
+      <Header :isEditor="true" :id="id" />
     </div>
     <!-- 编辑器主体区域 -->
     <div class="container">
@@ -15,13 +15,30 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import Header from '@/components/Common/Header.vue';
 import LeftSide from '@/views/EditorView/LeftSide/Index.vue';
 import Center from '@/views/EditorView/Center.vue';
 import RightSide from '@/views/EditorView/RightSide.vue';
 // 仓库
 import { useEditorStore } from '@/stores/useEditor';
-useEditorStore();
+import { getSurveyById } from '@/db/operation';
+import { restoreComponentStatus } from '@/utils';
+// 路由
+import { useRoute } from 'vue-router';
+const route = useRoute();
+const store = useEditorStore();
+store.resetComs();
+
+const id = computed(() => (route.params.id ? String(route.params.id) : ''));
+if (id.value) {
+  getSurveyById(Number(id.value)).then((res) => {
+    if (res) {
+      restoreComponentStatus(res.coms);
+      store.setStore(res);
+    }
+  });
+}
 </script>
 
 <style scoped lang="scss">

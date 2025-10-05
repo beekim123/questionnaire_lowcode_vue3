@@ -31,7 +31,7 @@ import ColorEditor from '@/components/SurveyComs/EditItems/ColorEditor.vue';
 import textNoteDefaultStatus from '@/configs/defaultStatus/TextNote';
 
 // indexedDB数据库操作方法
-import { saveSurvey } from '@/db/operation';
+import { saveSurvey,updateSurveyById } from '@/db/operation';
 
 // 仓库的初始化状态
 const initStore = () => [
@@ -274,6 +274,16 @@ export const useEditorStore = defineStore('editor', {
     // 保存问卷数据
     saveComs(data: SurveyDBData) {
       return saveSurvey(data);
+    },
+      // 还原问卷的仓库状态，其实就是根据传入的数据设置 coms、surveyCount、currentComponentIndex
+    setStore(data: SurveyDBData) {
+      this.coms = data.coms;
+      this.surveyCount = data.surveyCount;
+      this.currentComponentIndex = -1;
+    },
+    // 更新问卷
+    updateComs(id: number, data: Partial<SurveyDBData>) {
+      return updateSurveyById(id, data);
     },
    
   },
