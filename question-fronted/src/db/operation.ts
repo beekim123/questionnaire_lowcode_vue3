@@ -10,7 +10,7 @@ export async function saveSurvey(data: SurveyDBData) {
 
 // 查询所有数据
 export async function getAllSurvey() {
-  return await db.surveys.toArray();
+  return await db.surveys.orderBy('updateDate').reverse().toArray();
 }
 
 // 根据 id 查询某一条数据

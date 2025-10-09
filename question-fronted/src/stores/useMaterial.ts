@@ -56,7 +56,7 @@ export const useMaterialStore = defineStore('materialStore', {
       'text-input': defaultStatusMap['text-input'](),
       'rate-score': defaultStatusMap['rate-score'](),
       'date-time': defaultStatusMap['date-time'](),
-        'personal-info-name': initializedStates['personal-info-name'],
+      'personal-info-name': initializedStates['personal-info-name'],
       'personal-info-id': initializedStates['personal-info-id'],
       'personal-info-tel': initializedStates['personal-info-tel'],
       'personal-info-wechat': initializedStates['personal-info-wechat'],

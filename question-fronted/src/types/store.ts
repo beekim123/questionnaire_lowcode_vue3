@@ -169,3 +169,9 @@ export type QuizData = {
   surveyCount: number;
   coms: Status[];
 };
+// 定义 updateStatus 的类型
+export type UpdateStatus = (
+  configKey: string,
+  payload?: number | string | boolean | object,
+  isShowChange?: boolean,
+) => void
